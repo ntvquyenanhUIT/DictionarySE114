@@ -10,6 +10,16 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@null"
+            android:src="@drawable/ic_back"
+            android:layout_weight="1"
+            />
+
+
         <androidx.cardview.widget.CardView
             android:layout_margin="16sp"
             app:cardCornerRadius="8dp"
@@ -18,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.SearchView
+
                 android:id="@+id/result_search_view"
                 app:defaultQueryHint="Search words...."
                 app:iconifiedByDefault="false"

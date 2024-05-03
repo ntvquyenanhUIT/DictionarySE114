@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class ResultActivity extends AppCompatActivity {
     SearchView search_view;
     TextView textView_word;
 
+    ImageButton back_to_main_button;
     RecyclerView recycler_phonetics, recycler_meanings;
 
     PhoneticAdapter phoneticAdapter;
@@ -32,6 +34,8 @@ public class ResultActivity extends AppCompatActivity {
         recycler_phonetics = findViewById(R.id.recycler_phonetics);
         recycler_meanings = findViewById(R.id.recycler_meanings);
         search_view = findViewById(R.id.result_search_view);
+        back_to_main_button = findViewById(R.id.button_back);
+
 
         //Show word of the first search
         Intent intent = getIntent();
@@ -51,6 +55,10 @@ public class ResultActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+        });
+
+        back_to_main_button.setOnClickListener(v -> {
+            NavigationHelper.navigateToMainActivity(ResultActivity.this);
         });
 
     }
