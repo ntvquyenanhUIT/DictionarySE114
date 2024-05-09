@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,11 @@ public class ResultActivity extends AppCompatActivity {
 
     PhoneticAdapter phoneticAdapter;
     MeaningAdapter meaningAdapter;
+
+    //favourite_button
+    ImageButton favoriteButton;
+    boolean isHeartRed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +42,7 @@ public class ResultActivity extends AppCompatActivity {
         search_view = findViewById(R.id.result_search_view);
         back_to_main_button = findViewById(R.id.button_back);
 
+        favoriteButton = findViewById(R.id.button_favorite);
 
         //Show word of the first search
         Intent intent = getIntent();
@@ -61,6 +68,21 @@ public class ResultActivity extends AppCompatActivity {
             NavigationHelper.navigateToMainActivity(ResultActivity.this);
         });
 
+        //favorite_button_handler
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Check ImageButton status and change source
+                if (isHeartRed) {
+                    favoriteButton.setImageResource(R.drawable.ic_heart);
+                } else {
+                    favoriteButton.setImageResource(R.drawable.ic_heart_red);
+                }
+
+                // change present status
+                isHeartRed = !isHeartRed;
+            }
+        });
     }
 
     private final OnFetchDataListener listener = new OnFetchDataListener() {
