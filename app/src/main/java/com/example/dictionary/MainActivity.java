@@ -2,6 +2,7 @@ package com.example.dictionary;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 //    PhoneticAdapter phoneticAdapter;
 //    MeaningAdapter meaningAdapter;
 
+    // CardView: choose to show all favorite words
+    CardView cardView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 //        recycler_phonetics = findViewById(R.id.recycler_phonetics);
 //        recycler_meanings = findViewById(R.id.recycler_meanings);
 
+        cardView = findViewById(R.id.card_view_favourites);
 
         search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -45,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
+        });
+
+        cardView.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FavoriteWordsActivity.class);
+            startActivity(intent);
         });
 
     }

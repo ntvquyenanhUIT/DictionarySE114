@@ -31,6 +31,7 @@ public class ResultActivity extends AppCompatActivity {
     //favourite_button
     ImageButton favoriteButton;
     boolean isHeartRed = false;
+    String presentWord = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,14 @@ public class ResultActivity extends AppCompatActivity {
 
                 // change present status
                 isHeartRed = !isHeartRed;
+
+                // data handle part
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(ResultActivity.this);
+                if (isHeartRed) {
+                    dataBaseHelper.insertFavoriteWord(presentWord);
+                } else {
+                    dataBaseHelper.deleteFavoriteWord(presentWord);
+                }
             }
         });
     }
@@ -103,6 +112,8 @@ public class ResultActivity extends AppCompatActivity {
     };
 
     private void showData(APIResponse apiResponse) {
+        presentWord = apiResponse.getWord();
+
         textView_word.setText("Word: " + apiResponse.getWord());
         recycler_phonetics.setHasFixedSize(true);
         recycler_phonetics.setLayoutManager(new GridLayoutManager(this, 1));
