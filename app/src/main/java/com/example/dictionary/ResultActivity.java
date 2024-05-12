@@ -112,7 +112,17 @@ public class ResultActivity extends AppCompatActivity {
     };
 
     private void showData(APIResponse apiResponse) {
+        // set up favorite button status
         presentWord = apiResponse.getWord();
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(ResultActivity.this);
+        if (dataBaseHelper.isWordExists(presentWord)) {
+            favoriteButton.setImageResource(R.drawable.ic_heart_red);
+            isHeartRed = true;
+        }
+        else {
+            favoriteButton.setImageResource(R.drawable.ic_heart);
+            isHeartRed = false;
+        }
 
         textView_word.setText("Word: " + apiResponse.getWord());
         recycler_phonetics.setHasFixedSize(true);

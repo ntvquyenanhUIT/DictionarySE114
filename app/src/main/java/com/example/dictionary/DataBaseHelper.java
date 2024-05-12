@@ -39,10 +39,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS " + FAVORITE_WORDS_TABLE);
-        onCreate(db);
-
-        Log.d("DatabaseHelper", "Database upgraded successfully.");
     }
 
 
@@ -95,5 +91,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
 
         return returnList;
+    }
+
+    public boolean isWordExists(String word) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // SQL query to check if the word exists in the database
+        String queryString = "SELECT * FROM " + FAVORITE_WORDS_TABLE + " WHERE " + COLUMN_WORD + " = ?";
+
+        // use cursor to read data from database
+        Cursor cursor = db.rawQuery(queryString, new String[]{word});
+
+        // check exists or not
+        boolean exists = (cursor.getCount() > 0);
+
+        // close both the cursor and db when done.
+        cursor.close();
+        db.close();
+
+        return exists;
     }
 }

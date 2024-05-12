@@ -14,10 +14,16 @@ public class FavoriteWordsAdapter extends RecyclerView.Adapter<FavoriteWordsAdap
 
     private Context mContext;
     private List<String> mFavoriteWords;
+    private final OnItemClickListener listener;
 
-    public FavoriteWordsAdapter(Context context, List<String> favoriteWords) {
+    public FavoriteWordsAdapter(Context context, List<String> favoriteWords, OnItemClickListener listener) {
         mContext = context;
         mFavoriteWords = favoriteWords;
+        this.listener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(String word);
     }
 
     @NonNull
