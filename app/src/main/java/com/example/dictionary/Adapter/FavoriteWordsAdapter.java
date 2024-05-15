@@ -36,7 +36,7 @@ public class FavoriteWordsAdapter extends RecyclerView.Adapter<FavoriteWordsAdap
     @Override
     public void onBindViewHolder(@NonNull FavoriteWordViewHolder holder, int position) {
         String word = mFavoriteWords.get(position);
-        holder.textWord.setText(word);
+        holder.bind(word, listener);
     }
 
     @Override
@@ -44,12 +44,17 @@ public class FavoriteWordsAdapter extends RecyclerView.Adapter<FavoriteWordsAdap
         return mFavoriteWords.size();
     }
 
-    public class FavoriteWordViewHolder extends RecyclerView.ViewHolder {
-        TextView textWord;
+    public static class FavoriteWordViewHolder extends RecyclerView.ViewHolder {
+        private final TextView textWord;
 
         public FavoriteWordViewHolder(@NonNull View itemView) {
             super(itemView);
             textWord = itemView.findViewById(R.id.text_word);
+        }
+
+        public void bind(final String word, final OnItemClickListener listener) {
+            textWord.setText(word);
+            itemView.setOnClickListener(v -> listener.onItemClick(word));
         }
     }
 }

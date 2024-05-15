@@ -1,5 +1,6 @@
 package com.example.dictionary;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dictionary.Adapter.FavoriteWordsAdapter;
+import com.example.dictionary.Models.APIResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,15 +45,34 @@ public class FavoriteWordsActivity extends AppCompatActivity {
             recyclerView = findViewById(R.id.recycler_view_favorites);
             recyclerView.setLayoutManager(new LinearLayoutManager(FavoriteWordsActivity.this));
 
-            adapter = new FavoriteWordsAdapter(FavoriteWordsActivity.this, favoriteWordsList, new FavoriteWordsAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(String word) {
-                    // solve when a card view is clicked
-                    Toast.makeText(FavoriteWordsActivity.this, "Clicked word: " + word, Toast.LENGTH_SHORT).show();
-                }
-            });
+            adapter = new FavoriteWordsAdapter(FavoriteWordsActivity.this, favoriteWordsList, this::showFavoriteWord
+            );
             recyclerView.setAdapter(adapter);
         }
 
     }
+
+    private void showFavoriteWord(String word) {
+        RequestManager manager = new RequestManager(FavoriteWordsActivity.this);
+        manager.getWordMeaning(listener, word);
+    }
+
+    private final OnFetchDataListener listener = new OnFetchDataListener() {
+        @Override
+        public void onFetchData(APIResponse apiResponse, String message) {
+            if(apiResponse == null){
+                Toast.makeText(FavoriteWordsActivity.this, "No data found!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+//            showData(apiResponse);
+            Intent intent = new Intent(FavoriteWordsActivity.this, ResultActivity.class);
+            intent.putExtra("data", apiResponse);
+            startActivity(intent);
+        }
+
+        @Override
+        public void onError(String message) {
+            Toast.makeText(FavoriteWordsActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    };
 }
