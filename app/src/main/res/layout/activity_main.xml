@@ -15,7 +15,7 @@
             android:layout_margin="16sp"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/lightBlue"
+            app:cardBackgroundColor="@color/colorSecondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <androidx.appcompat.widget.SearchView
@@ -27,6 +27,19 @@
 
         </androidx.cardview.widget.CardView>
 
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:id="@+id/TranslateAcitivityBtn"
+            android:text="Translate"
+            android:textSize="19sp"
+            android:textAllCaps="false"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:backgroundTint="@color/colorSecondary"
+            android:textColor="@color/white"
+            />
 
 
 

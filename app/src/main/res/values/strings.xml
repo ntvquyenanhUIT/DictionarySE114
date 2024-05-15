@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Dictionary</string>
+    <string name="enter_text">Vui lòng nhập văn bản cần dịch</string>
+    <string name="translation_error">Có lỗi xảy ra trong lúc dịch</string>
+    <string name="model_download_error">Không thể model về máy</string>
+    <string name="speech_prompt">Hãy nói gì đó</string>
+    <string name="language_not_identified">Không xác định được ngôn ngữ</string>
+    <string name="language_identification_error">Có lỗi trong quá trình xác định ngôn ngữ</string>
 </resources>

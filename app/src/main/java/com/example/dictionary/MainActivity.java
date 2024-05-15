@@ -13,9 +13,11 @@ import android.widget.Toast;
 import com.example.dictionary.Adapter.MeaningAdapter;
 import com.example.dictionary.Adapter.PhoneticAdapter;
 import com.example.dictionary.Models.APIResponse;
+import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
     SearchView search_view;
+    MaterialButton translateNavigateBtn;
 //    TextView textView_word;
 //
 //    RecyclerView recycler_phonetics, recycler_meanings;
@@ -29,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         search_view = findViewById(R.id.search_view);
+        translateNavigateBtn = findViewById(R.id.TranslateAcitivityBtn);
+        translateNavigateBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, TranslateActivity.class);
+            startActivity(intent);
+        });
 //        textView_word = findViewById(R.id.textView_word);
 //        recycler_phonetics = findViewById(R.id.recycler_phonetics);
 //        recycler_meanings = findViewById(R.id.recycler_meanings);
