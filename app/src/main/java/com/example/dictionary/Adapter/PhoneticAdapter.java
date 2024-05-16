@@ -38,24 +38,24 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull PhoneticViewHolder holder, int position) {
         holder.textView_phonetic.setText(phoneticsList.get(position).getText());
-        holder.imageButton_audio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MediaPlayer player = new MediaPlayer();
-                try{
-                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    player.setDataSource(phoneticsList.get(position).getAudio());
-                    player.prepare();
-                    player.start();
-                } catch(Exception e){
-                    e.printStackTrace();
-                    Toast.makeText(context, "Couldn't Play Audio", Toast.LENGTH_SHORT).show();
-                }
-
-
-
-            }
-        });
+//        holder.imageButton_audio.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                MediaPlayer player = new MediaPlayer();
+//                try{
+//                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+//                    player.setDataSource(phoneticsList.get(position).getAudio());
+//                    player.prepare();
+//                    player.start();
+//                } catch(Exception e){
+//                    e.printStackTrace();
+//                    Toast.makeText(context, "Couldn't Play Audio", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//
+//            }
+//        });
     }
 
     @Override

@@ -5,4 +5,10 @@
     <color name="blue">#1C1678</color>
     <color name="dark">#003C43</color>
     <color name="lightBlue">#8576FF</color>
+    <color name="colorPrimary">#7C8DFF</color>
+    <color name="colorPrimaryDark">#333984</color>
+    <color name="colorAccent">#7C8DFF</color>
+    <color name="colorSecondary">#7C8DFF</color>
+    <color name="colorSecondaryDark">#7C8DFF</color>
+    <color name="offWhite">#f7f6f9</color>
 </resources>
