@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dictionary</string>
+    <string name="app_name">ZENITH</string>
     <string name="enter_text">Vui lòng nhập văn bản cần dịch</string>
     <string name="translation_error">Có lỗi xảy ra trong lúc dịch</string>
     <string name="model_download_error">Không thể model về máy</string>
