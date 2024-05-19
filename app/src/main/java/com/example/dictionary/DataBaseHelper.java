@@ -41,9 +41,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // this is called if the database version number changes. It prevents previous users app from breaking when you change the database design.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + FAVORITE_WORDS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + SUGGESTION_WORDS_TABLE);
+        onCreate(db);
 
+        Log.d("DatabaseHelper", "Database upgraded successfully.");
     }
-
 
     public void insertFavoriteWord(String word) {
 
@@ -81,12 +84,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
         cv.put(COLUMN_WORD, word);
         long insert = db.insert(SUGGESTION_WORDS_TABLE, null, cv);
-
         db.close();
-
         Log.d("DatabaseHelper", "Database inserted successfully.");
     }
 
