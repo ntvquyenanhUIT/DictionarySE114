@@ -51,13 +51,7 @@
 <!--                app:iconifiedByDefault="false"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="?attr/actionBarSize"/>-->
-
 <!--        </androidx.cardview.widget.CardView>-->
-
-
-
-
-
         <!-- Favourite Words CardView -->
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_favourites"
@@ -83,7 +77,8 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/white"/>
 
                 <!-- List of favourite words can be added here -->
                 <!-- For example: RecyclerView, ListView, or TextViews for each favourite word -->
@@ -92,18 +87,17 @@
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.button.MaterialButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:id="@+id/TranslateAcitivityBtn"
-            android:text="Translate"
-            android:textSize="19sp"
-            android:textAllCaps="false"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:backgroundTint="@color/colorSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/lightBlue"
+            android:text="Translate"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            />
-
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
