@@ -8,17 +8,38 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dictionary.Adapter.AutoSuggestAdapter;
 import com.example.dictionary.Adapter.MeaningAdapter;
 import com.example.dictionary.Adapter.PhoneticAdapter;
 import com.example.dictionary.Models.APIResponse;
 import com.google.android.material.button.MaterialButton;
 
-public class MainActivity extends AppCompatActivity {
-    SearchView search_view;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements ItemOnclick {
+
+
+
     MaterialButton translateNavigateBtn;
+
+    AutoCompleteTextView ACTV;
+
+    AutoSuggestAdapter adapter;
+    List<String> suggestions = new ArrayList<>();
+
+
 //    TextView textView_word;
 //
 //    RecyclerView recycler_phonetics, recycler_meanings;
@@ -33,8 +54,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
-        search_view = findViewById(R.id.search_view);
+
+
+
+        suggestions= dataBaseHelper.getSuggestWords("");
+
+        ACTV = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        ACTV.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    RequestManager manager = new RequestManager(MainActivity.this);
+                    manager.getWordMeaning(listener, ACTV.getText().toString());
+                    dataBaseHelper.insertSuggestWord(ACTV.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+
+
+
+         adapter = new AutoSuggestAdapter(this, R.layout.item_layout, suggestions,dataBaseHelper,this);
+        ACTV.setAdapter(adapter);
+        ACTV.setThreshold(1);
+
+
+
         translateNavigateBtn = findViewById(R.id.TranslateAcitivityBtn);
         translateNavigateBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, TranslateActivity.class);
@@ -46,18 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         cardView = findViewById(R.id.card_view_favourites);
 
-        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                RequestManager manager = new RequestManager(MainActivity.this);
-                manager.getWordMeaning(listener, query);
-                return true;
-            }
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+
+
+
+
+
 
         cardView.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, FavoriteWordsActivity.class);
@@ -84,6 +127,21 @@ public class MainActivity extends AppCompatActivity {
                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
+
+    @Override
+    public void ItemOnClicl(String value) {
+        ACTV.setText(value);
+        RequestManager manager = new RequestManager(MainActivity.this);
+        manager.getWordMeaning(listener, value);
+    }
+
+    @Override
+    public void DeleteItem(String value) {
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
+        dataBaseHelper.deleteSuggestWord(value);
+        adapter= new AutoSuggestAdapter(this, R.layout.item_layout, dataBaseHelper.getSuggestWords(""),dataBaseHelper,this);
+        ACTV.setAdapter(adapter);
+    }
 
 //    private void showData(APIResponse apiResponse) {
 //        textView_word.setText("Word: " + apiResponse.getWord());

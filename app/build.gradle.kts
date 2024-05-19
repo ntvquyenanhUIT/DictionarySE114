@@ -29,6 +29,8 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+
 }
 
 dependencies {
@@ -40,6 +42,8 @@ dependencies {
     implementation("com.google.mlkit:translate:17.0.2")
     implementation ("com.google.mlkit:language-id:17.0.5")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.github.arimorty:floatingsearchview:2.1.1")
+    implementation("com.github.zerobranch:SwipeLayout:1.3.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

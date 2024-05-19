@@ -11,21 +11,36 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <androidx.cardview.widget.CardView
-            android:layout_margin="16sp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/lightBlue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search_view"
-                app:defaultQueryHint="Search words...."
-                app:iconifiedByDefault="false"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"/>
 
-        </androidx.cardview.widget.CardView>
+        <AutoCompleteTextView
+            android:drawableStart="@drawable/ic_search_black_24dp"
+            android:layout_width="match_parent"
+            android:layout_weight="5"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customer_edit"
+            android:padding="15dp"
+            android:maxLines="1"
+            android:layout_margin="10dp"
+            android:hint="Search words...."
+            android:id="@+id/autoCompleteTextView"/>
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_margin="16sp"-->
+<!--            app:cardCornerRadius="8dp"-->
+<!--            app:cardElevation="8dp"-->
+<!--            app:cardBackgroundColor="@color/lightBlue"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                android:id="@+id/search_view"-->
+<!--                app:defaultQueryHint="Search words...."-->
+<!--                app:iconifiedByDefault="false"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="?attr/actionBarSize"/>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+
+
 
 
         <!-- Favourite Words CardView -->

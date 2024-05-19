@@ -16,6 +16,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     // table name
     public static final String FAVORITE_WORDS_TABLE = "FAVORITE_WORDS_TABLE";
+
+    public static final String SUGGESTION_WORDS_TABLE = "SUGGESTION_WORDS_TABLE";
     // columns
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_WORD = "WORD";
@@ -28,8 +30,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + FAVORITE_WORDS_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_WORD + " TEXT)";
-
+        String createTableStatement1 = "CREATE TABLE " + SUGGESTION_WORDS_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_WORD + " TEXT)";
         db.execSQL(createTableStatement);
+        db.execSQL(createTableStatement1);
 
         Log.d("DatabaseHelper", "Database created successfully.");
     }
@@ -65,6 +68,70 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         db.close();
     }
+
+
+    public void insertSuggestWord(String word) {
+
+        List<String> tmp = getSuggestWords(word);
+        for (String ob : tmp) {
+            if (ob.equals(word)) {
+                return;
+            }
+        }
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_WORD, word);
+        long insert = db.insert(SUGGESTION_WORDS_TABLE, null, cv);
+
+        db.close();
+
+        Log.d("DatabaseHelper", "Database inserted successfully.");
+    }
+
+    public void deleteSuggestWord(String word) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_WORD, word);
+        long insert = db.delete(SUGGESTION_WORDS_TABLE, COLUMN_WORD + "=?", new String[]{word});
+
+        db.close();
+    }
+
+
+    public List<String> getSuggestWords(String value) {
+        List<String> returnList = new ArrayList<>();
+
+        // get data from database
+        String queryString = "SELECT * FROM " + SUGGESTION_WORDS_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()) {
+            // loop through cursor (result set) and put them into the return list.
+            do {
+                if(cursor.getString(1).trim().toLowerCase().contains(value.trim().toLowerCase()))
+                    returnList.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+        else {
+            // failure. do not anything to the list.
+        }
+
+        // close both the cursor and db when done.
+        cursor.close();
+        db.close();
+
+        return returnList;
+    }
+
+
+
 
     public List<String> getFavoriteWords() {
         List<String> returnList = new ArrayList<>();
