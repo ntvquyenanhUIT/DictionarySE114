@@ -44,7 +44,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + FAVORITE_WORDS_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + SUGGESTION_WORDS_TABLE);
         onCreate(db);
-
         Log.d("DatabaseHelper", "Database upgraded successfully.");
     }
 
