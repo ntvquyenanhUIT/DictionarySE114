@@ -11,7 +11,22 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="10dp"
+                android:drawableLeft="@drawable/baseline_menu_book_24"
+                android:drawableRight="@drawable/baseline_menu_book_24"
+                android:text="ZENITH DICTIONARY"
+                android:textColor="#6a5acd"
+                android:textSize="30sp" />
 
+        </LinearLayout>
         <AutoCompleteTextView
             android:drawableStart="@drawable/ic_search_black_24dp"
             android:layout_width="match_parent"

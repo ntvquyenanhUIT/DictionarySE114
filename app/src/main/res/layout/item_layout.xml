@@ -28,6 +28,8 @@
         android:gravity="center_vertical"
         android:paddingEnd="10dp"
         android:paddingStart="20dp"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/baseline_call_made_24"/>
 
 </com.zerobranch.layout.SwipeLayout>

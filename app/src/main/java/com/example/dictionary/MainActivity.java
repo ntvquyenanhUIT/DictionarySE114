@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
         DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
 
 
-
-
         suggestions= dataBaseHelper.getSuggestWords("");
 
         ACTV = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
@@ -77,13 +75,9 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
             }
         });
 
-
-
-         adapter = new AutoSuggestAdapter(this, R.layout.item_layout, suggestions,dataBaseHelper,this);
+        adapter = new AutoSuggestAdapter(this, R.layout.item_layout, suggestions,dataBaseHelper,this);
         ACTV.setAdapter(adapter);
         ACTV.setThreshold(1);
-
-
 
         translateNavigateBtn = findViewById(R.id.TranslateAcitivityBtn);
         translateNavigateBtn.setOnClickListener(v -> {
@@ -96,17 +90,10 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
 
         cardView = findViewById(R.id.card_view_favourites);
 
-
-
-
-
-
-
         cardView.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, FavoriteWordsActivity.class);
             startActivity(intent);
         });
-
     }
 
     private final OnFetchDataListener listener = new OnFetchDataListener() {
