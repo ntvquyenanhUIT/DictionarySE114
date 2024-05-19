@@ -103,7 +103,18 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
-
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/MicrophoneButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/lightBlue"
+            android:text="Voice To Text"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
