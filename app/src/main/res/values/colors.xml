@@ -11,4 +11,7 @@
     <color name="colorSecondary">#7C8DFF</color>
     <color name="colorSecondaryDark">#7C8DFF</color>
     <color name="offWhite">#f7f6f9</color>
+    <color name="tan">#A1DD70</color>
+    <color name="darkblue">#153448</color>
+    <color name="bluemagenta">#1E0342</color>
 </resources>

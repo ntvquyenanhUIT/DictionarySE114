@@ -38,6 +38,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+
+
     // this is called if the database version number changes. It prevents previous users app from breaking when you change the database design.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

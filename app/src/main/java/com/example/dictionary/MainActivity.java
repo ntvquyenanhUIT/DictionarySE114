@@ -2,30 +2,25 @@ package com.example.dictionary;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dictionary.Adapter.AutoSuggestAdapter;
-import com.example.dictionary.Adapter.MeaningAdapter;
-import com.example.dictionary.Adapter.PhoneticAdapter;
 import com.example.dictionary.Models.APIResponse;
+import com.example.dictionary.Models.WordOfTheDay;
+import com.example.dictionary.Models.WordOfTheDayAPIResponse;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,10 +29,15 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
 
 
 
-    MaterialButton translateNavigateBtn;
+    static int CheckIfAPIFetched = 0;
+    MaterialButton translateNavigateBtn, WOTDNavigateBtn;
 
+    LinearLayout clickableLayout;
+
+    TextView dayTime_TV, word_TV;
     MaterialButton micBtn;
 
+    WordOfTheDay todayWord;
     AutoCompleteTextView ACTV;
 
     AutoSuggestAdapter adapter;
@@ -54,14 +54,35 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
     // CardView: choose to show all favorite words
     CardView cardView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
-
-
+        dayTime_TV = findViewById(R.id.dateTime_TV);
+        clickableLayout = findViewById(R.id.clickable_layout);
+        word_TV = findViewById(R.id.wod_TV);
         suggestions= dataBaseHelper.getSuggestWords("");
+        WOTDNavigateBtn = findViewById(R.id.WordOfTheDayActivityBtn);
+        RequestManager manager = new RequestManager(MainActivity.this);
+
+        //Nếu chưa fetch thì mới fetch
+        if(CheckIfAPIFetched == 0)
+        {
+            manager.getWordOfTheDay(wordOfTheDayListener);
+        }
+        else
+        {
+            String word = getSharedPreferences("MySharedPref", MODE_PRIVATE).getString("word", "");
+            String date = getSharedPreferences("MySharedPref", MODE_PRIVATE).getString("date", "");
+            word_TV.setText(word);
+            dayTime_TV.setText(date);
+        }
+
+
+
+
 
         ACTV = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
         ACTV.setOnKeyListener(new View.OnKeyListener() {
@@ -70,8 +91,9 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
-                    RequestManager manager = new RequestManager(MainActivity.this);
+
                     manager.getWordMeaning(listener, ACTV.getText().toString());
+
                     dataBaseHelper.insertSuggestWord(ACTV.getText().toString());
                     return true;
                 }
@@ -88,6 +110,13 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
             Intent intent = new Intent(MainActivity.this, TranslateActivity.class);
             startActivity(intent);
         });
+
+        WOTDNavigateBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ListWOTDActivity.class);
+//            intent.putExtra("data", DataPasser);
+            startActivity(intent);
+        });
+
 //        textView_word = findViewById(R.id.textView_word);
 //        recycler_phonetics = findViewById(R.id.recycler_phonetics);
 //        recycler_meanings = findViewById(R.id.recycler_meanings);
@@ -107,7 +136,23 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
             startActivityForResult(intent, 100);
         });
 
+
+        clickableLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, WOTDResultActivity.class);
+//                if(CheckIfDataPassed ==1){
+//                    intent.putExtra("data", todayWord);
+//                }
+                startActivity(intent);
+            }
+        });
+
+
     }
+
+
+
 
     private final OnFetchDataListener listener = new OnFetchDataListener() {
         @Override
@@ -127,6 +172,43 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
         }
     };
+
+
+    private final WordOfTheDayOnFetchDataListener wordOfTheDayListener = new WordOfTheDayOnFetchDataListener() {
+        @Override
+        public void onFetchData(WordOfTheDayAPIResponse apiResponse, String message) {
+            if(apiResponse == null){
+                Toast.makeText(MainActivity.this, "No data found!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            // Set the textView for the firsttime
+            List<WordOfTheDay> ListOfWord = apiResponse.getList();
+            todayWord = ListOfWord.get(0);
+            word_TV.setText(todayWord.getWord());
+            dayTime_TV.setText(todayWord.getDate());
+
+            //Save the API Response to Shared Preferences
+            SharedPreferences API_sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+            SharedPreferences.Editor myEdit = API_sharedPreferences.edit();
+            myEdit.putString("APIResponse", new Gson().toJson(apiResponse));
+            myEdit.putString("word", todayWord.getWord());
+            myEdit.putString("date", todayWord.getDate());
+            myEdit.putString("author", todayWord.getAuthor());
+            myEdit.putString("example", todayWord.getExample());
+            myEdit.putString("definition", todayWord.getDefinition());
+            myEdit.apply();
+            CheckIfAPIFetched++;
+
+
+        }
+
+        @Override
+        public void onError(String message) {
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+
 
     @Override
     public void ItemOnClicl(String value) {
