@@ -30,6 +30,6 @@
         android:paddingStart="20dp"
         android:textSize="20sp"
         android:drawablePadding="10dp"
-        android:drawableLeft="@drawable/baseline_call_made_24"/>
+        android:drawableLeft="@drawable/baseline_access_time_24"/>
 
 </com.zerobranch.layout.SwipeLayout>
