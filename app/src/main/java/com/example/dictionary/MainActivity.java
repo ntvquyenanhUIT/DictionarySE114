@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.MotionEvent;
 
 import com.example.dictionary.Adapter.AutoSuggestAdapter;
 import com.example.dictionary.Models.APIResponse;
@@ -101,6 +102,20 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
             }
         });
 
+        ACTV.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (ACTV.getRight() - ACTV.getCompoundDrawables()[2].getBounds().width())) {
+                        // your action here
+                        startVoiceRecognition();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         adapter = new AutoSuggestAdapter(this, R.layout.item_layout, suggestions,dataBaseHelper,this);
         ACTV.setAdapter(adapter);
         ACTV.setThreshold(1);
@@ -151,7 +166,12 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
 
     }
 
-
+    private void startVoiceRecognition() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+       intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
+       startActivityForResult(intent, 100);
+    }
 
 
     private final OnFetchDataListener listener = new OnFetchDataListener() {
