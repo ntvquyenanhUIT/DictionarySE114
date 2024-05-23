@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (ACTV.getRight() - ACTV.getCompoundDrawables()[2].getBounds().width())) {
+                    if (event.getRawX() >= (ACTV.getRight() - ACTV.getCompoundDrawables()[2].getBounds().width() - ACTV.getPaddingRight())) {
                         // your action here
                         startVoiceRecognition();
                         return true;
@@ -143,13 +143,7 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
             startActivity(intent);
         });
 
-//        micBtn = findViewById(R.id.MicrophoneButton);
-//        micBtn.setOnClickListener(v -> {
-//            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-//            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
-//            startActivityForResult(intent, 100);
-//        });
+//
 
 
         clickableLayout.setOnClickListener(new View.OnClickListener() {
