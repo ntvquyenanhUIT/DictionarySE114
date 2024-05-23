@@ -56,6 +56,34 @@ public class PhoneticAdapter extends RecyclerView.Adapter<PhoneticViewHolder>{
 //
 //            }
 //        });
+
+        holder.imageButton_audio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final MediaPlayer player = new MediaPlayer();
+                try {
+                    player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                    player.setDataSource(phoneticsList.get(holder.getAdapterPosition()).getAudio());
+                    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mp.start();
+                        }
+                    });
+                    player.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                        @Override
+                        public boolean onError(MediaPlayer mp, int what, int extra) {
+                            Toast.makeText(context, "Couldn't Play Audio", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                    });
+                    player.prepareAsync();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Couldn't Play Audio", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

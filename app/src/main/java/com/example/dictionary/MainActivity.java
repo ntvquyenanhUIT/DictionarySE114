@@ -11,6 +11,7 @@ import android.speech.RecognizerIntent;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,12 +31,12 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
 
 
     static int CheckIfAPIFetched = 0;
-    MaterialButton translateNavigateBtn, WOTDNavigateBtn;
+    MaterialButton translateNavigateBtn, WOTDNavigateBtn, FavoriteWordBtn;
 
     LinearLayout clickableLayout;
 
     TextView dayTime_TV, word_TV;
-    MaterialButton micBtn;
+    ImageButton micBtn;
 
     WordOfTheDay todayWord;
     AutoCompleteTextView ACTV;
@@ -52,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
 //    MeaningAdapter meaningAdapter;
 
     // CardView: choose to show all favorite words
-    CardView cardView;
 
 
     @Override
@@ -121,20 +121,20 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
 //        recycler_phonetics = findViewById(R.id.recycler_phonetics);
 //        recycler_meanings = findViewById(R.id.recycler_meanings);
 
-        cardView = findViewById(R.id.card_view_favourites);
+        FavoriteWordBtn = findViewById(R.id.FavoriteWordsActivityBtn);
 
-        cardView.setOnClickListener(v -> {
+        FavoriteWordBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, FavoriteWordsActivity.class);
             startActivity(intent);
         });
 
-        micBtn = findViewById(R.id.MicrophoneButton);
-        micBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
-            startActivityForResult(intent, 100);
-        });
+//        micBtn = findViewById(R.id.MicrophoneButton);
+//        micBtn.setOnClickListener(v -> {
+//            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+//            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+//            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Start Speaking");
+//            startActivityForResult(intent, 100);
+//        });
 
 
         clickableLayout.setOnClickListener(new View.OnClickListener() {

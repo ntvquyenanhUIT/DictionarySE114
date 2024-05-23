@@ -27,19 +27,36 @@
                 android:textSize="30sp" />
 
         </LinearLayout>
-        <AutoCompleteTextView
-            android:drawableStart="@drawable/ic_search_black_24dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_weight="5"
             android:layout_height="wrap_content"
-            android:background="@drawable/customer_edit"
-            android:padding="15dp"
-            android:maxLines="1"
-            android:layout_margin="10dp"
-            android:hint="Search words...."
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:id="@+id/autoCompleteTextView"/>
+            android:orientation="horizontal">
+            <AutoCompleteTextView
+                android:drawableStart="@drawable/ic_search_black_24dp"
+                android:drawableEnd="@drawable/mic"
+                android:layout_width="match_parent"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customer_edit"
+                android:padding="15dp"
+                android:maxLines="1"
+                android:layout_gravity="center_vertical"
+                android:layout_margin="10dp"
+                android:hint="Search words...."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:id="@+id/autoCompleteTextView"/>
+
+<!--            <ImageView-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:src="@drawable/microphone"-->
+<!--                android:padding="4dp"-->
+<!--                android:id="@+id/idIVMic"-->
+<!--                android:layout_marginTop="20dp"/>-->
+
+        </LinearLayout>
+
 <!--        <androidx.cardview.widget.CardView-->
 <!--            android:layout_margin="16sp"-->
 <!--            app:cardCornerRadius="8dp"-->
@@ -58,38 +75,18 @@
 
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card_view_favourites"
-            android:layout_margin="16sp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="@color/lightBlue"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/FavoriteWordsActivityBtn"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <!-- Content inside the Favourite Words CardView -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="16dp">
-
-                <!-- Title -->
-                <TextView
-                    android:id="@+id/text_favourite_words"
-                    android:text="Favourite Words"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@color/white"/>
-
-                <!-- List of favourite words can be added here -->
-                <!-- For example: RecyclerView, ListView, or TextViews for each favourite word -->
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:layout_height="60dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/lightBlue"
+            android:text="Favorite Words"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/TranslateAcitivityBtn"
@@ -103,18 +100,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/MicrophoneButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/lightBlue"
-            android:text="Voice To Text"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/WordOfTheDayActivityBtn"
