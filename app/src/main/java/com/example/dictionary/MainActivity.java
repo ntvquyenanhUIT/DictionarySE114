@@ -250,7 +250,10 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 100 && resultCode == RESULT_OK){
+            RequestManager manager = new RequestManager(MainActivity.this);
             ACTV.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
+            manager.getWordMeaning(listener, ACTV.getText().toString());
+
         }
     }
 //    private void showData(APIResponse apiResponse) {
