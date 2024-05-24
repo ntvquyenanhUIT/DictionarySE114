@@ -57,6 +57,8 @@ public class ResultActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 RequestManager manager = new RequestManager(ResultActivity.this);
                 manager.getWordMeaning(listener, query);
+                DataBaseHelper dataBaseHelper = new DataBaseHelper(ResultActivity.this);
+                dataBaseHelper.insertSuggestWord(query);
                 return true;
             }
             @Override

@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
                     if (event.getRawX() >= (ACTV.getRight() - ACTV.getCompoundDrawables()[2].getBounds().width() - ACTV.getPaddingRight())) {
                         // your action here
                         startVoiceRecognition();
+                       
                         return true;
                     }
                 }
@@ -247,6 +248,8 @@ public class MainActivity extends AppCompatActivity implements ItemOnclick {
             RequestManager manager = new RequestManager(MainActivity.this);
             ACTV.setText(data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS).get(0));
             manager.getWordMeaning(listener, ACTV.getText().toString());
+            DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
+            dataBaseHelper.insertSuggestWord(ACTV.getText().toString());
 
         }
     }
